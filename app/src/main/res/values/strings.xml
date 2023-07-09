@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Unit Converter</string>
+    <string name="input_hint">Enter Your Value Here</string>
+    <string name="result_hint">Result</string>
+    <string name="calculate_button">Calculate</string>
+    <string name="temperature_radio">Temperature</string>
+    <string name="length_radio">Length</string>
+    <string name="conversion">To</string>
+    <string-array name="temperature_units">
+        <item>Celsius</item>
+        <item>Fahrenheit</item>
+        <item>Kelvin</item>
+    </string-array>
+    <string-array name="length_units">
+        <item>CentiMeters</item>
+        <item>Meters</item>
+        <item>KiloMeters</item>
+        <item>Miles</item>
+    </string-array>
+</resources>
