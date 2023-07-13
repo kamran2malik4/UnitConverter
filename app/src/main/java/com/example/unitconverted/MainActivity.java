@@ -12,31 +12,37 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.lang.Math;
+
 public class MainActivity extends AppCompatActivity {
 
-    private RadioButton m_temperatureUnit, m_lengthUnit;
+    private RadioButton m_temperatureQuantity, m_lengthQuantity;
+
+    //These variables Inflate Spinners with units depending on which unit Radio is selected
     private Spinner m_fromUnit, m_toUnit;
 
     //These variables keep track of which one unit which is converted to another unit
-    private String m_firstUnit, m_secondUnit;
+    //integer Numbers are used which keep track of position of units in spinner
+    //so that approperiate calculation can be done
+    private int m_firstUnit, m_secondUnit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        m_temperatureUnit = findViewById(R.id.temperature_unit_radio);
-        m_lengthUnit = findViewById(R.id.length_unit_radio);
+        m_temperatureQuantity = findViewById(R.id.temperature_quantity_radio);
+        m_lengthQuantity = findViewById(R.id.length_quantity_radio);
         m_fromUnit = findViewById(R.id.from_unit_type);
         m_toUnit = findViewById(R.id.to_unit_type);
 
-        m_temperatureUnit.setOnClickListener(new View.OnClickListener() {
+        m_temperatureQuantity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 fillSpinnerWithUnits(R.array.temperature_units);
             }
         });
 
-        m_lengthUnit.setOnClickListener(new View.OnClickListener() {
+        m_lengthQuantity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 fillSpinnerWithUnits(R.array.length_units);
@@ -58,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         m_fromUnit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                m_firstUnit = adapterView.getItemAtPosition(i).toString();
+                m_firstUnit = i;
             }
 
             @Override
@@ -70,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         m_toUnit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                m_secondUnit = adapterView.getItemAtPosition(i).toString();
+                m_secondUnit = i;
             }
 
             @Override
@@ -81,21 +87,69 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //The following function takes input and calculates temperature according to user selection
+    //Numbers were used to keep track of units, check comment to see what unit that number represents
     private double getTemperatureConversion(double input){
         double converted = input;
+
+        // 0 = Celsius, 1 = Fahrenheit, 2 = Kelvin
+
         Log.v("Message", "Double: " + input);
-        if(m_firstUnit.equals("Celsius")){
-            if(m_secondUnit.equals("Fahrenheit")){ converted = (input*9/5) + 32; }
-            else if(m_secondUnit.equals("Kelvin")){ converted = input + 273.15; }
+        if(m_firstUnit == 0 /*Celsius*/){
+            if(m_secondUnit == 1 /*Fahrenheit*/){ converted = (input*9/5) + 32; }
+            else if(m_secondUnit == 2 /*Kelvin*/){ converted = input + 273.15; }
         }
-        else if(m_firstUnit.equals("Fahrenheit")){
-            if(m_secondUnit.equals("Celsius")){ converted = (input - 32) * 5/9; }
-            else if(m_secondUnit.equals("Kelvin")){ converted = (input - 32) * 5/9 + 273.15; }
+        else if(m_firstUnit == 1 /*Fahrenheit*/){
+            if(m_secondUnit == 0 /*Celsius*/){ converted = (input - 32) * 5/9; }
+            else if(m_secondUnit == 2 /*Kelvin*/){ converted = (input - 32) * 5/9 + 273.15; }
         }
-        else {
-            if(m_secondUnit.equals("Celsius")){ converted = input - 273.15; }
-            else if(m_secondUnit.equals("Fahrenheit")){ converted = (input - 237.15) * 9/5 + 32; }
+        else if(m_firstUnit == 2 /*Kelvin*/) {
+            if(m_secondUnit == 0 /*Celsius*/){ converted = input - 273.15; }
+            else if(m_secondUnit == 1 /*Fahrenheit*/){
+                converted = (input - 273.15) * 9/5 + 32;
+            }
         }
+
+        return converted;
+    }
+
+    //The following function takes input and calculates temperature according to user selection
+    //Numbers were used to keep track of units, check comment to see what unit that number represents
+    private double getLengthConversion(double input){
+        double converted = input;
+
+        // 0 = Centimeters, 1 = Inches, 2 = Meters, 3 = Kilometers, 4 = Miles
+
+        if(m_firstUnit == 0 /*Centimeters*/){
+            if(m_secondUnit == 1 /*Inches*/){ converted = input / 2.54; }
+            else if(m_secondUnit == 2 /*Meters*/){ converted = input / 100.0; }
+            else if(m_secondUnit == 3 /*Kilometers*/) { converted = input / 100000.0; }
+            else if(m_secondUnit == 4 /*Miles*/){ converted = input / 160900; }
+        }
+        else if(m_firstUnit == 1 /*Inches*/){
+            if(m_secondUnit == 0 /*Centimeters*/){ converted = input * 2.54; }
+            else if(m_secondUnit == 2 /*Meters*/){ converted = input / 39.37; }
+            else if(m_secondUnit == 3 /*Kilometers*/){ converted = input / 39370; }
+            else if(m_secondUnit == 4 /*Miles*/){ converted = input / 63360; }
+        }
+        else if(m_firstUnit == 2 /*Meters*/){
+            if(m_secondUnit == 0 /*Centimeters*/){ converted = input * 100; }
+            else if(m_secondUnit == 1 /*Inches*/){ converted = input * 39.37; }
+            else if(m_secondUnit == 3 /*Kilometers*/){ converted = input / 1000; }
+            else if(m_secondUnit == 4 /*Miles*/){ converted = input / 1609; }
+        }
+        else if(m_firstUnit == 3 /*Kilometers*/){
+            if(m_secondUnit == 0 /*Centimeters*/){ converted = input * 100000; }
+            else if(m_secondUnit == 1 /*Inches*/){ converted = input * 39370; }
+            else if(m_secondUnit == 2 /*Meters*/){ converted = input * 1000; }
+            else if(m_secondUnit == 4 /*Miles*/){ converted = input / 1.609; }
+        }
+        else if(m_firstUnit == 4 /*Miles*/){
+            if(m_secondUnit == 0 /*Centimeters*/){ converted = input * 160934.4; }
+            else if(m_secondUnit == 1 /*Inches*/){ converted = input * 63360; }
+            else if(m_secondUnit == 2 /*Meters*/){ converted = input * 1609; }
+            else if(m_secondUnit == 3 /*Kilometers*/){ converted = input * 1.609; }
+        }
+
         return converted;
     }
 
@@ -106,11 +160,11 @@ public class MainActivity extends AppCompatActivity {
 
         String result = "Select Units";
 
-        if(m_temperatureUnit.isChecked()){
+        if(m_temperatureQuantity.isChecked()){
             result = "" + getTemperatureConversion(input);
         }
-        else if(m_lengthUnit.isChecked()){
-            result = "Length Units";
+        else if(m_lengthQuantity.isChecked()){
+            result = "" + getLengthConversion(input);
         }
 
         displayResult(result);

@@ -38,7 +38,7 @@
             android:id="@+id/user_input_text"/>
 
         <RadioGroup
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:orientation="horizontal">
@@ -46,22 +46,32 @@
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="24dp"
+                android:layout_weight="1"
                 android:text="@string/temperature_radio"
                 android:textSize="18sp"
                 android:textColor="@android:color/white"
                 android:fontFamily="sans-serif-light"
-                android:id="@+id/temperature_unit_radio"/>
+                android:id="@+id/temperature_quantity_radio"/>
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="24dp"
+                android:layout_weight="1"
                 android:text="@string/length_radio"
                 android:textSize="18sp"
                 android:textColor="@android:color/white"
                 android:fontFamily="sans-serif-light"
-                android:id="@+id/length_unit_radio"/>
+                android:id="@+id/length_quantity_radio"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/density_radio"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:fontFamily="sans-serif-light"
+                android:id="@+id/density_quantity_radio"/>
 
         </RadioGroup>
 

@@ -5,6 +5,7 @@
     <string name="calculate_button">Calculate</string>
     <string name="temperature_radio">Temperature</string>
     <string name="length_radio">Length</string>
+    <string name="density_radio">Density</string>
     <string name="conversion">To</string>
     <string-array name="temperature_units">
         <item>Celsius</item>
@@ -13,6 +14,7 @@
     </string-array>
     <string-array name="length_units">
         <item>CentiMeters</item>
+        <item>Inches</item>
         <item>Meters</item>
         <item>KiloMeters</item>
         <item>Miles</item>
