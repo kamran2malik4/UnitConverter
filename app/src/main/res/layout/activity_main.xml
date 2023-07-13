@@ -31,8 +31,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:hint="@string/input_hint"
+            android:textColorHint="#A6A6A6"
             android:inputType="numberDecimal|numberSigned"
             android:textSize="24sp"
+            android:textColor="@color/black"
             android:background="@android:color/white"
             android:fontFamily="sans-serif-medium"
             android:id="@+id/user_input_text"/>
@@ -62,16 +64,6 @@
                 android:textColor="@android:color/white"
                 android:fontFamily="sans-serif-light"
                 android:id="@+id/length_quantity_radio"/>
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/density_radio"
-                android:textSize="18sp"
-                android:textColor="@android:color/white"
-                android:fontFamily="sans-serif-light"
-                android:id="@+id/density_quantity_radio"/>
 
         </RadioGroup>
 
