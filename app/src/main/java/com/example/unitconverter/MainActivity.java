@@ -1,4 +1,4 @@
-package com.example.unitconverted;
+package com.example.unitconverter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,8 +11,6 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import java.lang.Math;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Convertidor de unidades</string>
+    <string name="input_hint" translatable="false">Ingrese su valor aquí</string>
+    <string name="result_hint" translatable="false">Resultado</string>
+    <string name="calculate_button">Calcular</string>
+    <string name="temperature_radio">Temperatura</string>
+    <string name="length_radio">Longitud</string>
+    <string name="density_radio">Densidad</string>
+    <string name="conversion">A</string>
+</resources>
