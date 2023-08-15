@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RadioButton m_temperatureQuantity, m_lengthQuantity;
+    private RadioButton m_temperatureQuantity, m_lengthQuantity, m_weightQuantity;
 
     //These variables Inflate Spinners with units depending on which unit Radio is selected
     private Spinner m_fromUnit, m_toUnit;
@@ -30,8 +30,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         m_temperatureQuantity = findViewById(R.id.temperature_quantity_radio);
         m_lengthQuantity = findViewById(R.id.length_quantity_radio);
+        m_weightQuantity = findViewById(R.id.weight_quantity_radio);
         m_fromUnit = findViewById(R.id.from_unit_type);
         m_toUnit = findViewById(R.id.to_unit_type);
+
+        //Default filling of Spinner
+        fillSpinnerWithUnits(R.array.temperature_units);
 
         m_temperatureQuantity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,6 +48,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 fillSpinnerWithUnits(R.array.length_units);
+            }
+        });
+
+        m_weightQuantity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fillSpinnerWithUnits(R.array.weight_units);
             }
         });
     }
@@ -151,6 +162,45 @@ public class MainActivity extends AppCompatActivity {
         return converted;
     }
 
+    //This function handles conversion of weight units
+    private double getWeightConversion(double input){
+        double converted = input;
+
+        // 0 = Milligrams, 1 = Grams, 2 = Kilograms, 3 = Pounds, 4 = Tonnes
+        if(m_firstUnit == 0 /*Milligrams*/){
+            if(m_secondUnit == 1 /*Grams*/){ converted = input / 1000; }
+            else if(m_secondUnit == 2 /*Kilograms*/){ converted = input / 1000000; }
+            else if(m_secondUnit == 3 /*Pounds*/){ converted = input / 453600; }
+            else if(m_secondUnit == 4 /*Tonnes*/){ converted = input / 907184740; }
+        }
+        else if(m_firstUnit == 1 /*Grams*/){
+            if(m_secondUnit == 0 /*Milligrams*/){ converted = input * 1000; }
+            else if(m_secondUnit == 2 /*Kilograms*/){ converted = input / 1000; }
+            else if(m_secondUnit == 3 /*Pounds*/){ converted = input / 453.6; }
+            else if(m_secondUnit == 4 /*Tonnes*/){ converted = input /  907184.74; }
+        }
+        else if(m_firstUnit == 2 /*Kilograms*/){
+            if(m_secondUnit == 0 /*Milligrams*/){ converted = input * 1000000; }
+            else if(m_secondUnit == 1 /*Grams*/){ converted = input * 1000; }
+            else if(m_secondUnit == 3 /*Pounds*/){ converted = input * 2.205; }
+            else if(m_secondUnit == 4 /*Tonnes*/){ converted = input / 1000; }
+        }
+        else if(m_firstUnit == 3 /*Pounds*/){
+            if(m_secondUnit == 0 /*Milligrams*/){ converted = input * 453600; }
+            else if(m_secondUnit == 1 /*Grams*/){ converted = input * 453.592; }
+            else if(m_secondUnit == 2 /*Kilograms*/){ converted = input / 2.205; }
+            else if(m_secondUnit == 4 /*Tonnes*/){ converted = input / 2205; }
+        }
+        else if(m_firstUnit == 4 /*Tonnes*/){
+            if(m_secondUnit == 0 /*Milligrams*/){ converted = input * 1000000000; }
+            else if(m_secondUnit == 1 /*Grams*/){ converted = input * 1000000; }
+            else if(m_secondUnit == 2 /*Kilograms*/){ converted = input * 1000; }
+            else if(m_secondUnit == 3 /*Pounds*/){ converted = input * 2204.62; }
+        }
+
+        return converted;
+    }
+
     //This Function is called Every time Calculate Button is pressed
     public void calculate(View view){
         EditText userInput = findViewById(R.id.user_input_text);
@@ -163,6 +213,9 @@ public class MainActivity extends AppCompatActivity {
         }
         else if(m_lengthQuantity.isChecked()){
             result = "" + getLengthConversion(input);
+        }
+        else if(m_weightQuantity.isChecked()){
+            result = "" + getWeightConversion(input);
         }
 
         displayResult(result);

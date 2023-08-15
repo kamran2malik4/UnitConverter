@@ -6,6 +6,6 @@
     <string name="calculate_button">Calcular</string>
     <string name="temperature_radio">Temperatura</string>
     <string name="length_radio">Longitud</string>
-    <string name="density_radio">Densidad</string>
+    <string name="weight_radio">Poids</string>
     <string name="conversion">A</string>
 </resources>

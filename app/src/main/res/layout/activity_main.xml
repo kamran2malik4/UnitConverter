@@ -53,6 +53,7 @@
                 android:text="@string/temperature_radio"
                 android:textSize="18sp"
                 android:textColor="@android:color/white"
+                android:checked="true"
                 android:fontFamily="sans-serif-light"
                 android:id="@+id/temperature_quantity_radio"/>
 
@@ -65,6 +66,16 @@
                 android:textColor="@android:color/white"
                 android:fontFamily="sans-serif-light"
                 android:id="@+id/length_quantity_radio"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/weight_radio"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:fontFamily="sans-serif-light"
+                android:id="@+id/weight_quantity_radio"/>
 
         </RadioGroup>
 
